@@ -15,7 +15,7 @@ app.use(express.json());
 
 // חיבור ל-MongoDB המקומי
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/beauty_salon_db')
-.then(() => console.log('✅ Connected to Beauty Salon DB'))
+    .then(() => console.log('✅ Connected to Beauty Salon DB'))
     .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // --- נתיבים (Routes) עבור האתר ---
@@ -30,11 +30,9 @@ app.get('/api/treatments', async (req, res) => {
 
     try {
         const treatments = await Treatment.find();
-        debugger
-        console.log(treatments);
-
         res.json(treatments);
     } catch (err) {
+        console.error('❌ Error fetching treatments:', err);
         res.status(500).json({ message: "שגיאה בשליפת הטיפולים" });
     }
     // Treatment.find()
@@ -52,6 +50,7 @@ app.post('/api/treatments', async (req, res) => {
         await newTreatment.save();
         res.status(201).json(newTreatment);
     } catch (err) {
+        console.error('❌ Error adding treatment:', err);
         res.status(400).json({ message: 'שגיאה בהוספת הטיפול' });
     }
 });
@@ -63,6 +62,7 @@ app.post('/api/appointments', async (req, res) => {
         await newAppointment.save();
         res.status(201).json({ message: 'התור נקבע בהצלחה!' });
     } catch (err) {
+        console.error('❌ Error creating appointment:', err);
         res.status(400).json({ message: 'שגיאה בקביעת התור' });
     }
 });
@@ -72,6 +72,7 @@ app.get('/api/appointments', async (req, res) => {
         const appointments = await Appointment.find();
         res.json(appointments);
     } catch (err) {
+        console.error('❌ Error fetching appointments:', err);
         res.status(500).send("שגיאה בשליפת התורים");
     }
 });
@@ -80,6 +81,7 @@ app.get('/api/branches', async (req, res) => {
         const branches = await Branches.find(); // שליפת כל הסניפים
         res.json(branches);
     } catch (err) {
+        console.error('❌ Error fetching branches:', err);
         res.status(500).send("שגיאה בשליפת הסניפים");
     }
 });
