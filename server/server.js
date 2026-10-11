@@ -14,8 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 // חיבור ל-MongoDB המקומי
-mongoose.connect('mongodb://localhost:27017/beauty_salon_db')
-    .then(() => console.log('✅ Connected to Beauty Salon DB'))
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/beauty_salon_db')
+.then(() => console.log('✅ Connected to Beauty Salon DB'))
     .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // --- נתיבים (Routes) עבור האתר ---
