@@ -15,7 +15,7 @@
     <div class="form-row">
       <div class="input-group">
         <label>משך זמן</label>
-        <input [(ngModel)]="newTreatment.duration" placeholder="למשל: 60 דקות">
+        <input type="number" min="1" [(ngModel)]="newTreatment.duration" placeholder="משך בדקות, למשל: 60">
       </div>
       <div class="input-group">
         <label>מחיר (₪)</label>
